@@ -1,7 +1,7 @@
 <%= form_with(model: task) do |form|  %>
   <% if task.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(task.errors.count, "error") %> prohibited this task from being saved:</h2>
+      <h2><%= task.errors.count %> <%= task.errors.count < 2 ? t('error_title_single') : t('error_title_plurial') %> <%= task.errors.count < 2 ? t('global_form_error_sigle') : t('global_form_error_plurial') %>:</h2>
 
       <ul>
         <% task.errors.each do |error| %>

@@ -1,21 +1,21 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Show Task Page</h1>
+<h1><%= t("show_task_page.title") %></h1>
 
 <p>
-  <strong>Title:</strong>
+  <strong><%= t("show_task_page.show_title_text") %>:</strong>
   <%= @task.title %>
 </p>
 
 <p>
-  <strong>Content:</strong>
+  <strong><%= t("show_task_page.show_content_title") %>:</strong>
   <%= @task.content %>
 </p>
 
 <p class="last_carac">
-  <strong>Created_at:</strong>
-  <%= @task.created_at %>
+  <strong><%= t("show_task_page.show_created_at_title") %>:</strong>
+  <%= @task.created_at.strftime("%Y/%m/%d %H:%M") %>
 </p>
 
-<%= link_to 'Edit', edit_task_path(@task) %> |
-<%= link_to 'Back', tasks_path %>
+<%= link_to t("show_task_page.edit_link_text"), edit_task_path(@task) %> |
+<%= link_to t("back") , tasks_path %>
