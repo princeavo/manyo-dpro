@@ -1,17 +1,31 @@
 require 'rails_helper'
 
-RSpec.describe 'タスク管理機能', type: :system do
-    describe '一覧表示機能' do
-        context '一覧画面に遷移した場合' do
-          it '登録済みのタスク一覧が表示される' do
-            # テストで使用するためのタスクを登録
-            Task.create!(title: '書類作成', content: '企画書を作成する。')
-            # タスク一覧画面に遷移
-            visit tasks_path
-            # visit（遷移）したpage（この場合、タスク一覧画面）に"書類作成"という文字列が、have_content（含まれていること）をexpect（確認・期待）する
-            expect(page).to have_content '書類作成'
-            # expectの結果が「真」であれば成功、「偽」であれば失敗としてテスト結果が出力される
+RSpec.describe 'Fonction de gestion des tâches', type: :system do
+      describe 'Nouvelle fonction de création' do
+        context 'Lors de la création de nouvelle tâche' do
+          it 'La tâche créée saffiche' do
+            visit new_task_path
+            fill_in 'Titre', with: 'title_test'
+            fill_in 'Contenu', with: 'content_test'
+            click_on 'Créer une tâche'
+            expect(page).to have_content 'title_test'
+
           end
         end
-    end
+      end
+
+      describe 'Fonction daffichage trié' do
+        context 'Si les tâches sont classées par ordre décroissant de date et de heure de création' do
+          it 'Les nouvelles tâches apparaissent en haut de la liste.' do
+            Task.create(title: 'task1', content: 'description1')
+            Task.create( title: 'task2', content: 'description2')
+            Task.create(title: 'task3', content: 'description3')
+            Task.create(title: 'task4', content: 'description4') 
+            visit tasks_path
+            tasks_list = all('td')
+            expect(tasks_list[0]).to have_content 'task4'
+          end
+        end
+      end
+      
 end

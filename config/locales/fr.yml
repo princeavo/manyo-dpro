@@ -1,0 +1,58 @@
+fr:
+  activerecord:
+    models:
+      task: "une tâche"
+    attributes:
+      task:
+        title: Titre
+        content: Contenu
+    errors:
+      models:
+        task:
+          attributes:
+            title:
+              blank: " : Veuillez entrer un titre"
+            content:
+              blank: " : Veuillez saisir le contenu"
+  global_form_error_sigle: "est survenue lors de l'enregistrement de la tâche"
+  global_form_error_plurial: "sont survenues lors de l'enregistrement de la tâche"
+  error_title_single: "erreur"
+  notice:
+    create_task: "J'ai enregistré une tâche."
+    update_task: "Tâche mise à jour."
+    delete_task: "Tâche supprimée."
+  error_title_plurial: "erreurs"
+  prince: 'AVOHOU'
+  helpers:
+    submit:
+      create: "Créer %{model}"
+      update: "Mettre à jour"
+  back: 'Retour'
+  application:
+    tasks_links:
+      index: 'Liste des tâches'
+      new: 'Enregistrer une tâche'
+      edit: 'Modifier la tâche'
+      destroy: 'Supprimer la tâche'
+  index_page:
+    title: 'Page de liste des tâches'
+    table:
+      headers:
+        title: 'Titre'
+        content: 'Contenu'
+        created_at: 'Date et heure de création'
+      actions_links:
+        show: 'Détails'
+        edit: 'Modifier'
+        destroy: 'Supprimer'
+      confirm_destroy_action: 'Êtes-vous sûr de vouloir le supprimer ?'
+  new_task_page:
+    title: "Page d'enregistrement des tâches"
+  show_task_page:
+    title: "Page de modification de tâches"
+    show_title_text: "Titre"
+    show_content_title: "Contenu"
+    show_created_at_title: "Date et heure de création"
+    edit_link_text: "Modifier"
+  edit_task_page:
+    title: "Page de modification de tâches"
