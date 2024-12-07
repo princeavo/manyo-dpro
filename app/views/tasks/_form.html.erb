@@ -22,6 +22,21 @@
     <br>
     <%= form.text_area :content %>
   </div>
+  <div class="field">
+    <%= form.label :deadline_on %>
+    <br>
+    <%= form.date_field :deadline_on, start_date: Time.now  %>
+  </div>
+  <div class="field">
+    <%= form.label :priority %>
+    <br>
+    <%= form.select :priority,  [["Sélectionnez une priorité", nil],["Faible"], ["Moyenne"],["Elevée"]] %>
+  </div>
+  <div class="field">
+    <%= form.label :status %>
+    <br>
+    <%= form.select :status, [["Sélectionnez un statut", nil],["Non démarré"], ["Démarré"],["Terminé"]] %>
+  </div>
   <div class="actions">
     <%= form.submit %>
   </div>
