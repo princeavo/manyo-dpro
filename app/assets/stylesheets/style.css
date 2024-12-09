@@ -22,12 +22,20 @@ th{
     font-size: 22px;
     text-align: center;
 }
-ul.root{
-    margin-left: 30px;
-}
 .field{
     margin-bottom: 20px;
 }
 .last_carac{
     margin-bottom: 40px;
+}
+#global_navigation{
+    display: flex;
+    gap: 50px;
+}
+#global_navigation h2{
+    margin-bottom: 20px;
+}
+#global_navigation ul{
+    border: 1px solid #000;
+    padding: 50px;
 }

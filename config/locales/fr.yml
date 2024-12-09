@@ -6,6 +6,10 @@ fr:
       task:
         title: Titre
         content: Contenu
+      user:
+        password: "Mot de passe"
+        name: "Nom"
+        password_confirmation: "Confirmation du mot de passe"
     errors:
       models:
         task:
@@ -21,8 +25,22 @@ fr:
               blank: " : Veuillez saisir une priorité"
             status:
               blank: " : Veuillez saisir votre statut"
+        user:
+          attributes:
+            password:
+              blank: " :Le mot de passe est obligatoire"
+            name: 
+              blank: ": Le nom est obligatoire"
+            password_confirmation:
+              blank: " : Veuillez confirmer le mot de passe"
+              confirmation: "Les mots de passes ne correspondent pas"
+            email:
+              blank: " : L'adresse email est obligatoire"
+              invalid: " : Adresse email invalide"
   global_form_error_sigle: "est survenue lors de l'enregistrement de la tâche"
+  global_form_user_error_sigle: "est survenue lors de la création du compte"
   global_form_error_plurial: "sont survenues lors de l'enregistrement de la tâche"
+  global_form_user_error_plurial: "sont survenues lors de la création du compte"
   error_title_single: "erreur"
   notice:
     create_task: "J'ai enregistré une tâche."
@@ -41,6 +59,12 @@ fr:
       new: 'Enregistrer une tâche'
       edit: 'Modifier la tâche'
       destroy: 'Supprimer la tâche'
+    menu1:
+      title: 'Menu'
+      sign_up_link: 'Enregistrement du compte'
+      sign_in_link: 'Se connecter'
+      account_settings: 'paramètres du compte'
+      sign_out_link: 'Déconnexion'
   index_page:
     title: 'Page de liste des tâches'
     table:
@@ -76,3 +100,10 @@ fr:
       short: "%d/%m"
       long: "%d %B %Y"
     order: "Date"
+  new_account_page:
+    title: "Page d'enregistrement du compte"
+    name_label: "Nom"
+    email_label: "Adresse email"
+    password_label: "Mot de passe"
+    password_confirmation_label: "Mot de passe (confirmer)"
+    create_account_button: "Enregistrer"

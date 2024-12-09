@@ -10,10 +10,24 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
     <% end %>
   <body>
-    <ul class="root">
-      <li><%= link_to t("application.tasks_links.index"), tasks_path %></li>
-      <li><%= link_to t("application.tasks_links.new"), new_task_path %></li>
-    </ul>
+    <div id="global_navigation">
+      <div>
+        <h2><%= t("application.menu1.title") %></h2>
+        <ul>
+          <li><%= link_to t("application.menu1.sign_up_link"), new_user_path , id: 'sign-up' %></li>
+          <li><%= link_to t("application.menu1.sign_in_link"), new_session_path %></li>
+          <li><%= link_to t("application.menu1.account_settings"), user_path %></li>
+          <li><%= link_to t("application.menu1.sign_out_link"), destroy_session_path %></li>
+        </ul>
+      </div>
+      <div>
+        <h2>CDP Web Manyo Task</h2>
+        <ul>
+          <li><%= link_to t("application.tasks_links.index"), tasks_path %></li>
+          <li><%= link_to t("application.tasks_links.new"), new_task_path %></li>
+        </ul>
+      </div>
+    </div>
     <%= yield %>
   </body>
 </html>
