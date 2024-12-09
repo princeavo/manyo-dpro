@@ -16,16 +16,17 @@ RSpec.describe 'タスクモデル機能', type: :model do
     end
     context 'Si tout est bon' do
       it 'Validation fails' do
-        task = Task.create(title: 'Titre non vide', content: 'nil',deadline_on: '2024-12-08',priority: :Faible, status: 'Non démarré')
+        task = Task.create(title: 'Titre non vide', content: 'nil',deadline_on: '2024-12-08',priority: :low, status: 'Not Started')
         expect(task).not_to be_invalid
       end
     end
   end
   
   describe 'fonction de recherche' do
-    task = Task.create(title: 'test_title', content:'test_content', deadline_on: '2024-12-08',priority: :Faible, status: 'Non démarré')
-    second_task = Task.create(title: 'Test name', content:'Test description', deadline_on: '2024-12-09',priority: :Faible, status: :Terminé)
-    third_task = Task.create(title: 'third_task', content:'third_task description', deadline_on: '2024-12-19',priority: :Moyenne, status: :Démarré)
+    Task.delete_all
+    task = Task.create(title: 'test_title', content:'test_content', deadline_on: '2024-12-08',priority: :low, status: 'Not Started')
+    second_task = Task.create(title: 'Test name', content:'Test description', deadline_on: '2024-12-09',priority: :low, status: :Complete)
+    third_task = Task.create(title: 'third_task', content:'third_task description', deadline_on: '2024-12-19',priority: :medium, status: 'In Process')
     context "Si une recherche floue d'un titre est effectuée à l'aide de la méthode scope" do
       it "Les tâches contenant des termes de recherche sont réduites." do
         # Utilisez les filtres to et not_to pour vérifier à la fois ce qui a été recherché et ce qui ne l'a pas été.
@@ -40,18 +41,18 @@ RSpec.describe 'タスクモデル機能', type: :model do
         # toとnot_toのマッチャを使って検索されたものとされなかったものの両方を確認する
         # 検索されたテストデータの数を確認する
 
-        expect(Task.search_status(:Démarré)).to include(third_task)
-        expect(Task.search_status('Démarré')).not_to include(second_task)
-        expect(Task.search_status('Terminé').count).to eq 1
+        expect(Task.search_status('In Process')).to include(third_task)
+        expect(Task.search_status('In Process')).not_to include(second_task)
+        expect(Task.search_status('Complete').count).to eq 1
       end
     end
     context "Recherche de titres et de statuts ambigus dans la méthode du champ d'application" do
       it "Les tâches dont le titre contient le terme de recherche et qui correspondent exactement au statut sont réduites." do
         # toとnot_toのマッチャを使って検索されたものとされなかったものの両方を確認する
         # 検索されたテストデータの数を確認する
-        expect(Task.search_title('est_').search_status('Non démarré')).to include(task)
-        expect(Task.search_title('itle').search_status('Terminé')).not_to include(second_task)
-        expect(Task.search_title('name').search_status('Terminé').count).to eq 1
+        expect(Task.search_title('est_').search_status('Not Started')).to include(task)
+        expect(Task.search_title('itle').search_status('Complete')).not_to include(second_task)
+        expect(Task.search_title('name').search_status('Complete').count).to eq 1
       end
     end
   end

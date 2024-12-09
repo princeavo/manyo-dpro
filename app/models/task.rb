@@ -8,19 +8,19 @@ class Task < ApplicationRecord
 
 
     enum priority: {
-        Faible: 0,
-        Moyenne: 1,
-        Elevée: 2 
+        low: "0",
+        medium: "1",
+        high: "2" 
     }
     enum status:{
-        "Non démarré": 0,
-        "Démarré": 1,
-        "Terminé":2
+        "Not Started": "0",
+        "In Process": "1",
+        "Complete":"2"
     }
 
     scope :search_title, -> title {where("title LIKE ?", "%#{title}%")}
     scope :search_status, -> status {where(status: status)}
     scope :order_by_created_at, -> {order(created_at: :desc,id: :desc)}
     scope :order_by_deadline, -> {order(deadline_on: :asc)}
-    scope :order_by_priority_desc, -> {order(priority: :desc)}
+    scope :order_by_priority_asc, -> {order(priority: :asc,created_at: :desc)}
 end
