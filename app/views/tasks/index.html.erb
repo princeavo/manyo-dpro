@@ -7,8 +7,8 @@
   <div class="input-group mb-4"> 
     <%= form.text_field :title, class:'form-control' %>
     <div class="input-group-append">  
-      <strong> <%= form.label :status %> </strong>
-      <%= form.select :status, Task.statuses.keys.to_a, { include_blank:'Please select'} %> 
+      <strong> <%= form.label :status , t("index_page.label_status") %> </strong>
+      <%= form.select :status,Task::statuses,{:include_blank => 'Sélectionnez un status'} %> 
     </div>
   </div>
   <%= form.submit t("index_page.search_button"), class: 'btn btn-outline-primary mr-2',id:'search_task' %> 

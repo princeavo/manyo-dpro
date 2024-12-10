@@ -8,7 +8,7 @@ class TasksController < ApplicationController
       if params[:sort_prority].blank?
         @tasks = Task.order_by_created_at.page(params[:page])
       else
-        @tasks = Task.order_by_priority_desc.page(params[:page])
+        @tasks = Task.order_by_priority_asc.page(params[:page])
       end
     else
       @tasks = Task.order_by_deadline.page(params[:page])

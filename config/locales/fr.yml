@@ -72,15 +72,16 @@ fr:
         title: 'Titre'
         content: 'Contenu'
         created_at: 'Date et heure de création'
-        deadline: 'Date de fin'
-        priority: 'Priorité'
-        status: 'Statut'
+        deadline: 'Due Date'
+        priority: 'Priority'
+        status: 'Status'
       actions_links:
         show: 'Détails'
         edit: 'Modifier'
         destroy: 'Supprimer'
       confirm_destroy_action: 'Êtes-vous sûr de vouloir le supprimer ?'
     search_button: 'Rechercher'
+    label_status: "Status"
   new_task_page:
     title: "Page d'enregistrement des tâches"
   show_task_page:
@@ -88,9 +89,9 @@ fr:
     show_title_text: "Titre"
     show_content_title: "Contenu"
     show_created_at_title: "Date et heure de création"
-    show_dreadline_text: "Date de fin"
-    show_priority_title: "Priorité"
-    show_status_title: "Statut"
+    show_dreadline_text: "Due Date"
+    show_priority_title: "Priority"
+    show_status_title: "Status"
     edit_link_text: "Modifier"
   edit_task_page:
     title: "Page de modification de tâches"
