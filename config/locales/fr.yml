@@ -14,6 +14,13 @@ fr:
               blank: " : Veuillez entrer un titre"
             content:
               blank: " : Veuillez saisir le contenu"
+            deadline_on:
+              blank: " : Veuillez saisir la date de fin"
+              invalid: " : La date de fin doit être dans le futur"
+            priority:
+              blank: " : Veuillez saisir une priorité"
+            status:
+              blank: " : Veuillez saisir votre statut"
   global_form_error_sigle: "est survenue lors de l'enregistrement de la tâche"
   global_form_error_plurial: "sont survenues lors de l'enregistrement de la tâche"
   error_title_single: "erreur"
@@ -41,11 +48,16 @@ fr:
         title: 'Titre'
         content: 'Contenu'
         created_at: 'Date et heure de création'
+        deadline: 'Due Date'
+        priority: 'Priority'
+        status: 'Status'
       actions_links:
         show: 'Détails'
         edit: 'Modifier'
         destroy: 'Supprimer'
       confirm_destroy_action: 'Êtes-vous sûr de vouloir le supprimer ?'
+    search_button: 'Rechercher'
+    label_status: "Status"
   new_task_page:
     title: "Page d'enregistrement des tâches"
   show_task_page:
@@ -53,6 +65,15 @@ fr:
     show_title_text: "Titre"
     show_content_title: "Contenu"
     show_created_at_title: "Date et heure de création"
+    show_dreadline_text: "Due Date"
+    show_priority_title: "Priority"
+    show_status_title: "Status"
     edit_link_text: "Modifier"
   edit_task_page:
     title: "Page de modification de tâches"
+  date:
+    formats:
+      default: "%d/%m/%Y"
+      short: "%d/%m"
+      long: "%d %B %Y"
+    order: "Date"

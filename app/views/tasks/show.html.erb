@@ -12,10 +12,21 @@
   <%= @task.content %>
 </p>
 
-<p class="last_carac">
+<p>
   <strong><%= t("show_task_page.show_created_at_title") %>:</strong>
   <%= @task.created_at.strftime("%Y/%m/%d %H:%M") %>
 </p>
-
+<p>
+  <strong><%= t("show_task_page.show_dreadline_text") %>:</strong>
+  <%= @task.deadline_on %>
+</p>
+<p>
+  <strong><%= t("show_task_page.show_priority_title") %>:</strong>
+  <%= @task.priority %>
+</p>
+<p class="last_carac">
+  <strong><%= t("show_task_page.show_status_title") %>:</strong>
+  <%= @task.status %>
+</p>
 <%= link_to t("show_task_page.edit_link_text"), edit_task_path(@task) %> |
 <%= link_to t("back") , tasks_path %>
