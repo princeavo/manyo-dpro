@@ -30,12 +30,12 @@
   <div class="field">
     <%= form.label :priority %>
     <br>
-    <%= form.select :priority, Task::priorities,{:include_blank => 'Sélectionnez une priorité'}%>
+    <%= form.select :priority, Task::priorities.keys,{:include_blank => 'Sélectionnez une priorité'}%>
   </div>
   <div class="field">
     <%= form.label :status %>
     <br>
-    <%= form.select :status ,Task::statuses,{:include_blank => 'Sélectionnez un status'} %>
+    <%= form.select :status ,Task::statuses.keys,{:include_blank => 'Sélectionnez un status'} %>
   </div>
   <div class="actions">
     <%= form.submit %>

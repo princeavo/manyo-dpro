@@ -1,0 +1,12 @@
+<h1><%= t("show_profile_page.title") %></h1>
+<p id="notice"><%= notice %></p>
+<p>
+  <strong><%= t("show_profile_page.name_label") %>:</strong>
+  <%= current_user.name %>
+</p>
+
+<p>
+  <strong><%= t("show_profile_page.email_label") %>:</strong>
+  <%= current_user.email %>
+</p>
+<%= link_to t("show_profile_page.update_button_label"), edit_profile_path , id:'edit-user' %>

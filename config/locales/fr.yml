@@ -4,11 +4,11 @@ fr:
       task: "une tâche"
     attributes:
       task:
-        title: Titre
+        title: "Titre"
         content: Contenu
       user:
         password: "Mot de passe"
-        name: "Nom"
+        name: "Nom :"
         password_confirmation: "Confirmation du mot de passe"
     errors:
       models:
@@ -28,15 +28,17 @@ fr:
         user:
           attributes:
             password:
-              blank: " :Le mot de passe est obligatoire"
+              blank: "Veuillez entrer votre mot de passe"
+              too_short: "Veuillez saisir un mot de passe d'au moins %{count} caractères."
             name: 
-              blank: ": Le nom est obligatoire"
+              blank: "Veuillez entrer votre nom"
             password_confirmation:
-              blank: " : Veuillez confirmer le mot de passe"
-              confirmation: "Les mots de passes ne correspondent pas"
+              blank: "Veuillez entrer votre mot de passe"
+              confirmation: "Le mot de passe (confirmer) et la saisie du mot de passe ne correspondent pas"
             email:
-              blank: " : L'adresse email est obligatoire"
-              invalid: " : Adresse email invalide"
+              blank: "Veuillez entrer votre adresse e-mail"
+              invalid: "Veuillez entrer votre adresse e-mail"
+              taken: "L'adresse e-mail est déjà utilisée"
   global_form_error_sigle: "est survenue lors de l'enregistrement de la tâche"
   global_form_user_error_sigle: "est survenue lors de la création du compte"
   global_form_error_plurial: "sont survenues lors de l'enregistrement de la tâche"
@@ -59,6 +61,11 @@ fr:
       new: 'Enregistrer une tâche'
       edit: 'Modifier la tâche'
       destroy: 'Supprimer la tâche'
+    admin_links:
+      list_user: "Liste des utilisateurs"
+      new_user: "Enregistrer un utilisateur"
+      edit_user: "Écran de détails de l'utilisateur"
+      show_user: "Écran de modification de l'utilisateur"
     menu1:
       title: 'Menu'
       sign_up_link: 'Enregistrement du compte'
@@ -95,6 +102,36 @@ fr:
     edit_link_text: "Modifier"
   edit_task_page:
     title: "Page de modification de tâches"
+  admin_pages:
+    list_user:
+      title: "Page de liste des utilisateurs"
+      table:
+        headers:
+          name: "Nom"
+          email: "Adresse email"
+          privileged: "Privilèges d'administrateur"
+          tasks_count: "Nombre de tâches"
+    new_user:
+      title: "Page d'enregistrement des utilisateurs"
+      name_label: "Nom"
+      email_label: "Adresse email"
+      password_label: "Mot de passe"
+      password_confirmation_label: "Mot de passe (confirmer)"
+      create_user_button: "Enregistrer"
+      is_admin_label: "Privilèges d'administrateur"
+    show_user:
+      title: "Page de détails de l'utilisateur"
+      name_label: "Nom"
+      email_label: "Adresse email"
+      is_admin_label: "Privilèges d'administrateur"
+    edit_user:
+      title: "Page de modification de l'utilisateur"
+      name_label: "Nom"
+      email_label: "Adresse email"
+      submit_button: "Mise à jour"
+      success_message: "Utilisateur mis à jour"
+    delete_uer:
+      success_message: "utilisateur supprimé"
   date:
     formats:
       default: "%d/%m/%Y"
@@ -108,3 +145,23 @@ fr:
     password_label: "Mot de passe"
     password_confirmation_label: "Mot de passe (confirmer)"
     create_account_button: "Enregistrer"
+    success_message: "J'ai enregistré un compte."
+  login_page:
+    title: "Page de connexion"
+    email_label: "Adresse email"
+    password_label: "Mot de passe"
+    login_button: "Se connecter"
+    bad_credentials_error_message: "Adresse e-mail ou mot de passe incorrect"
+    success_message: "Connecté"
+    logout_success_message: "Déconnecté"
+  account_settings_page:
+    title: "Page de modification du compte"
+    name_label: "Nom"
+    email_label: "Adresse email"
+    submit_label: "Mise à jour"
+    success_message: "Compte mis à jour"
+  show_profile_page:
+    title: "Page de détails du compte"
+    name_label: "Nom"
+    email_label: "Adresse email"
+    update_button_label: "modifier"
