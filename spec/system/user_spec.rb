@@ -99,7 +99,7 @@ RSpec.describe 'fonctions de gestion des utilisateurs', type: :system do
         login
         visit(admin_users_path)
         expect(page).to  have_current_path(tasks_path)
-        expect(page).to have_content("Seul l'administrateur peut y accéder.")
+        expect(page).to have_content("Only administrators can access")
       end
     end
   end
