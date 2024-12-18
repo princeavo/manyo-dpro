@@ -35,13 +35,13 @@ class User < ApplicationRecord
     end
     def prevent_last_admin_deletion
       if admin && User.where(admin: :true).count == 1
-        errors.add(:base, "Impossible de supprimer car il n'y a aucun administrateur.")
+        errors.add(:base, "The user cannot be deleted because there are zero administrators")
         throw(:abort)
       end
     end
     def prevent_last_admin_demotion
       if admin_was && !admin && User.where(admin: true).count == 1
-        errors.add(:base, "Les privilèges ne peuvent pas être modifiés car il n'y a aucun administrateur.")
+        errors.add(:base, "The privileges cannot be changed because there are zero administrators")
         throw(:abort)
       end
     end

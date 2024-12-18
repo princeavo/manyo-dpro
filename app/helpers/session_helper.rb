@@ -19,6 +19,6 @@ module SessionHelper
     redirect_to tasks_path , :flash => { :error => "Veuillez vous déconnecter" } if user_is_logged?
   end
   def autorize_admin_only
-    redirect_to tasks_path , :flash => { :error => "Seul l'administrateur peut y accéder." } if !current_user_is_admin?
+    redirect_to tasks_path , :flash => { :error => "Only administrators can access" } if !current_user_is_admin?
   end
 end

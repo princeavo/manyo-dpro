@@ -5,21 +5,32 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-Task.create([
-    { title: "Apple", content:"Lorem ipsum",priority: :low,status: 'Not Started', deadline_on:'2024-12-08'},
-    { title: "Watermelon", content:"Lorem1",priority: :low ,status: 'Not Started', deadline_on:'2024-12-09'},
-    { title: "Orange", content:"Lorem2" ,priority: :low,status: 'Not Started', deadline_on:'2024-12-10'},
-    { title: "Pear", content:"Lorem3" ,priority: :low,status: 'Not Started', deadline_on:'2024-12-11'},
-    { title: "Cherry", content:"Lorem4" ,priority: :low,status: 'Not Started', deadline_on:'2024-12-12'},
-    { title: "Strawberry", content:"Lorem5" ,priority: :medium,status: 'In Process', deadline_on:'2024-12-13'},
-    { title: "Nectarine", content:"Lorem6",priority: :medium,status: 'In Process' , deadline_on:'2024-12-14'},
-    { title: "Grape", content:"Lorem7" ,priority: :medium,status: 'In Process', deadline_on:'2024-12-15'},
-    { title: "Mango", content:"Lorem8" ,priority: :medium,status: 'In Process', deadline_on:'2024-12-16'},
-    { title: "Blueberry", content:"Lorem9" ,priority: :medium,status: 'In Process', deadline_on:'2024-12-17'},
-    { title: "Pomegranate", content:"Lorem 10" ,priority: :medium,status: 'In Process', deadline_on:'2024-12-18'},
-    { title: "Plum", content:"Lorem 11" ,priority: :high,status: 'Complete', deadline_on:'2024-12-19'},
-    { title: "Banana", content:"Lorem 12"  ,priority: :high,status: 'Complete', deadline_on:'2024-12-20'},
-    { title: "Raspberry", content:"Lorem 13"  ,priority: :high,status: 'Complete',  deadline_on:'2024-12-21'},
-    { title: "Mandarin", content:"Lorem 14"  ,priority: :high,status: 'Complete', deadline_on:'2024-12-22'},
-    { title: "Jackfruit", content:"Lorem 15"  ,priority: :high,status: 'Complete', deadline_on:'2024-12-23'}
-  ])
+# db/seeds.rb
+
+require 'faker'
+
+
+# Create 50 users, with some as admins
+50.times do
+  User.create!(
+    name: Faker::Name.name,
+    email: Faker::Internet.email,
+    password: "password123",  # Replace with a secure password hashing mechanism
+    password_confirmation: "password123",
+    admin: rand(0..1) == 1  # Randomly assign admin role
+  )
+end
+
+# Create 100 tasks, assigning them to random users
+500.times do
+  Task.create!(
+    title: Faker::Lorem.sentence(word_count: 3),
+    content: Faker::Lorem::paragraph(sentence_count: 2),
+    deadline_on: Faker::Date.forward(days: 14),
+    priority: [:low, :medium, :high].sample,
+    status: ["Not Started", "In Process", :Complete].sample,
+    user: User.all.sample
+  )
+end
+
+puts "Created #{User.count} users and #{Task.count} tasks."
