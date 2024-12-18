@@ -1,8 +1,8 @@
 require 'rails_helper'
 
+include SpecHelper
 
-User.create(name: 'Name1', email: 'exemple1@example.com',password: "nilerdtfgyuh", password_confirmation: 'nilerdtfgyuh',admin: :false)
-User.create(name: 'Name1', email: 'admin@admin.com',password: "nilerdtfgyuh", password_confirmation: 'nilerdtfgyuh',admin: :true)
+create_test_users
 
 
 RSpec.describe 'fonctions de gestion des utilisateurs', type: :system do
@@ -104,29 +104,3 @@ RSpec.describe 'fonctions de gestion des utilisateurs', type: :system do
     end
   end
 end
-
-
-
-private 
-  def login
-    visit(login_path)
-    fill_in 'email', with: 'exemple1@example.com'
-    fill_in "password",	with: "nilerdtfgyuh" 
-    find('input[value="Se connecter"]').click
-  end
-  def login_admin
-    visit(login_path)
-    fill_in 'email', with: 'admin@admin.com'
-    fill_in "password",	with: "nilerdtfgyuh" 
-    find('input[value="Se connecter"]').click
-  end
-  def admin_add_user
-    visit(admin_users_path)
-    find("#add-user").click
-    fill_in 'user_name', with: 'valueRandomdfghjlk_esdtrfyguh_tgfhbjkn'
-    fill_in 'user_email', with: 'dcfv@tdgfrh.random'
-    fill_in 'user_password', with: 'azerty@azerty.com'
-    fill_in 'user_password_confirmation', with: 'azerty@azerty.com'
-    find("#user_admin").click
-    click_on 'create-user'
-  end
