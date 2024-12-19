@@ -1,0 +1,2 @@
+<h1><%= t("new_account_page.title") %></h1>
+<%= render partial:"sessions/form", locals:{user:@user,url:new_user_post_path,submit_button_name: t("new_account_page.create_account_button"),submit_button_id:"create-user"} %>

@@ -1,0 +1,28 @@
+<h1>Liste</h1>
+<p><%= flash[:success] %></p>
+<p><%= flash[:error] %></p>
+<table>
+  <thead>
+    <th><%= t("admin_pages.list_user.table.headers.name") =%></th>
+    <th><%= t("admin_pages.list_user.table.headers.email") =%></th>
+    <th><%= t("admin_pages.list_user.table.headers.privileged") =%></th>
+    <th><%= t("admin_pages.list_user.table.headers.tasks_count") =%></th>
+    <th colspan="3"></th>
+  </thead>
+  <tbody>
+  <% @users.each do |user| %>
+    <tr>
+      <td><%= user.name %></td>
+      <td><%= user.email %></td>
+      <td><%= user.admin_privilege %></td>
+      <td><%= user.tasks_count %></td>
+      <td><%= link_to t("index_page.table.actions_links.show"), admin_user_path(user),class: "show-user" %></td>
+      <td><%= link_to t("index_page.table.actions_links.edit"), edit_admin_user_path(user), class: "edit-user" %></td>
+      <td>
+        <%= link_to t("index_page.table.actions_links.destroy"), delete_admin_user_path(user), method: :delete,class: "destroy-user" ,data: { confirm: t("index_page.table.confirm_destroy_action") } %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+

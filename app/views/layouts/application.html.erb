@@ -6,14 +6,44 @@
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <% if current_page?(tasks_path) || current_page?(root_path) %>
+    <% if current_page?(tasks_path) || current_page?(root_path) || current_page?(admin_users_path) %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
     <% end %>
   <body>
-    <ul class="root">
-      <li><%= link_to t("application.tasks_links.index"), tasks_path %></li>
-      <li><%= link_to t("application.tasks_links.new"), new_task_path %></li>
-    </ul>
+    <div id="global_navigation">
+      <div>
+        <h2><%= t("application.menu1.title") %></h2>
+        <ul>
+        <% if !user_not_logged? %>
+          <li><%= link_to t("application.menu1.account_settings"), show_profile_path %></li>
+          <li><%= button_to t("application.menu1.sign_out_link"), destroy_session_path , method: :post %></li>
+        <% else %>
+          <li><%= link_to t("application.menu1.sign_up_link"), new_user_path , id: 'sign-up' %></li>
+          <li><%= link_to t("application.menu1.sign_in_link"), login_path %></li>
+        <% end %>
+        </ul>
+      </div>
+      <% if !user_not_logged? %>
+      <div>
+        <h2>CDP Web Manyo Task</h2>
+        <ul>
+          <li><%= link_to t("application.tasks_links.index"), tasks_path %></li>
+          <li><%= link_to t("application.tasks_links.new"), new_task_path %></li>
+        </ul>
+      </div>
+      <% end %>
+      <% if current_user_is_admin? %>
+      <div>
+        <h2>Admin</h2>
+        <ul>
+          <li><%= link_to t("application.admin_links.list_user"), admin_users_path,id:"users-index" %></li>
+          <li><%= link_to t("application.admin_links.new_user"), new_admin_user_path,id:"add-user" %></li>
+          <li><%= link_to t("application.admin_links.edit_user"), admin_user_path(2) %></li>
+          <li><%= link_to t("application.admin_links.show_user"), edit_admin_user_path(2) %></li>
+        </ul>
+      </div>
+      <% end %>
+    </div>
     <%= yield %>
   </body>
 </html>

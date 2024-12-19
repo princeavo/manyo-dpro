@@ -1,28 +1,33 @@
 class TasksController < ApplicationController
+  include SessionHelper
   before_action :set_task, only: %i[ show edit update destroy ]
+  before_action :authenticate_user
+  #before_action :autorize_admin_only
+
+  #before_action :all_before_actions
 
   # GET /tasks or /tasks.json
   def index
     if params[:sort_deadline_on].blank?
       #@tasks = Task.order_by_created_at.page(params[:page])
       if params[:sort_prority].blank?
-        @tasks = Task.order_by_created_at.page(params[:page])
+        @tasks = current_user.tasks.order_by_created_at.page(params[:page])
       else
-        @tasks = Task.order_by_priority_asc.page(params[:page])
+        @tasks = current_user.tasks.order_by_priority_asc.page(params[:page])
       end
     else
-      @tasks = Task.order_by_deadline.page(params[:page])
+      @tasks = current_user.tasks.order_by_deadline.page(params[:page])
     end
 
     if params[:title].present? && params[:status].present?
       # return search results where both name and status are valid
-      @tasks = Task.search_title(params[:title]).search_status(params[:status]).page(params[:page])
+      @tasks = current_user.tasks.search_title(params[:title]).search_status(params[:status]).page(params[:page])
       # When the only parameter passed is the task name
     elsif params[:title].present?
-      @tasks = Task.search_title(params[:title]).page(params[:page])
+      @tasks = current_user.tasks.search_title(params[:title]).page(params[:page])
       # When the only parameter passed is status
     elsif params[:status].present?
-      @tasks = Task.search_status(params[:status]).page(params[:page])
+      @tasks = current_user.tasks.search_status(params[:status]).page(params[:page])
     end
   end
 
@@ -41,7 +46,7 @@ class TasksController < ApplicationController
 
   # POST /tasks or /tasks.json
   def create
-    @task = Task.new(task_params)
+    @task = Task.new(task_params.merge(user: current_user))
 
     respond_to do |format|
       if @task.save
@@ -86,5 +91,8 @@ class TasksController < ApplicationController
     # Only allow a list of trusted parameters through.
     def task_params
       params.require(:task).permit(:title, :content,:deadline_on,:priority,:status)
+    end
+    def all_before_actions
+      authenticate_user
     end
 end

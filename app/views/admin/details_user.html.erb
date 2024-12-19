@@ -1,0 +1,36 @@
+<h1><%= t("admin_pages.show_user.title") %></h1>
+<ul>
+  <li><%= t("admin_pages.show_user.name_label") %> : <%= @user.name %></li>
+  <li><%= t("admin_pages.show_user.email_label") %> : <%= @user.email %></li>
+  <li><%= t("admin_pages.show_user.is_admin_label") %> : <%= @user.admin_privilege %></li>
+</ul>
+
+
+<table>
+  <thead>
+    <tr>
+      <th><%= t("index_page.table.headers.title") %></th>
+      <th><%= t("index_page.table.headers.content") %></th>
+      <th><%= t("index_page.table.headers.created_at") %></th>
+      <th><%=  t("index_page.table.headers.deadline") %></th>
+      <th><%= t("index_page.table.headers.priority")  %></th>
+      <th><%= t("index_page.table.headers.status") %></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @user.tasks.each do |task| %>
+      <tr>
+        <td><%= task.title %></td>
+        <td><%= task.content %></td>
+        <td><%= task.created_at.strftime("%Y/%m/%d %H:%M") %></td>
+        <td><%= task.deadline_on %></td>
+        <td><%= task.priority %></td>
+        <td><%= task.status %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+<%= link_to t("back"), admin_users_path, id: "back" %>

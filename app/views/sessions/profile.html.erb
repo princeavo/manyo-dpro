@@ -1,0 +1,2 @@
+<h1><%= t("account_settings_page.title") %></h1>
+<%= render partial:"sessions/form", locals:{user:@user,url:edit_profile_post_path,submit_button_name:t("account_settings_page.submit_label"),submit_button_id:'update-user'} %>

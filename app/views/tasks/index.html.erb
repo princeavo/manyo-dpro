@@ -1,5 +1,6 @@
 <p id="notice"><%= notice %></p>
-
+<p id="success"><%= flash[:success] %></p>
+<p id="error"><%= flash[:error] %></p>
 <h1><%= t("index_page.title") %></h1>
 
 <%= form_with url: tasks_path, method: :get, local: true do |form| %>
