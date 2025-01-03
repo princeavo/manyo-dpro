@@ -34,5 +34,7 @@ module CdpWebManyoTask
         controller_specs: false,
         request_specs: false
     end
+    config.exceptions_app = self.routes
+    config.action_dispatch.show_exceptions = true
   end
 end

@@ -1,43 +1,49 @@
 <%= form_with(model: task) do |form|  %>
   <% if task.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= task.errors.count %> <%= task.errors.count < 2 ? t('error_title_single') : t('error_title_plurial') %> <%= task.errors.count < 2 ? t('global_form_error_sigle') : t('global_form_error_plurial') %>:</h2>
+    <div id="error_explanation" class="mb-2 alert alert-danger">
+      <h4><%= task.errors.count %> <%= task.errors.count < 2 ? t('error_title_single') : t('error_title_plurial') %> <%= task.errors.count < 2 ? t('global_form_error_sigle') : t('global_form_error_plurial') %>:</h4>
 
-      <ul>
+      <ul class="list-group">
         <% task.errors.each do |error| %>
-          <li><%= error.full_message %></li>
+          <li class="list-group-item list-group-item-danger"><%= error.full_message %></li>
         <% end %>
       </ul>
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="field form-group">
     <%= form.label :title %>
     <br>
-    <%= form.text_field :title %>
+    <%= form.text_field :title, class: 'form-control' %>
   </div>
 
-  <div class="field">
+  <div class="field form-group">
     <%= form.label :content %>
     <br>
-    <%= form.text_area :content %>
+    <%= form.text_area :content , class: 'form-control' %>
   </div>
   <div class="field">
     <%= form.label :deadline_on %>
     <br>
-    <%= form.date_field :deadline_on, start_date: Time.now  %>
+    <%= form.date_field :deadline_on, start_date: Time.now , class: 'form-control' %>
   </div>
   <div class="field">
     <%= form.label :priority %>
     <br>
-    <%= form.select :priority, Task::priorities.keys,{:include_blank => 'Sélectionnez une priorité'}%>
+    <%= form.select :priority, Task::priorities.keys,{:include_blank => 'Sélectionnez une priorité'} ,class: "form-control" %>
   </div>
   <div class="field">
     <%= form.label :status %>
     <br>
-    <%= form.select :status ,Task::statuses.keys,{:include_blank => 'Sélectionnez un status'} %>
+    <%= form.select :status  ,Task::statuses.keys,{:include_blank => 'Sélectionnez un status'}  ,class: "form-control" %>
+  </div>
+  <div>
+    <% Label.all.each do |label| %>
+      <%= form.check_box :label_ids, { multiple: true, include_hidden: false }, label[:id]  ,class: "form-check-input" %>
+      <%= label.name %>
+    <% end %>
   </div>
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit class: "btn btn-primary my-2" %>
   </div>
 <% end %>

@@ -1,0 +1,30 @@
+<h1><%= t("label_list_page.title") %></h1>
+<% if flash["success"] %>
+<div class="alert alert-success">
+  <%= flash["success"] %>
+</div>
+<% end %>
+<% if flash["error"] %>
+<div class="alert alert-danger">
+  <%= flash["error"] %>
+</div>
+<% end %>
+<table class="table">
+  <thead class="thead-light">
+  <tr>
+    <th><%= t("label_list_page.table.headers.name") %></th>
+    <th><%= t("label_list_page.table.headers.task_number") %></th>
+    <th colspan="2"></th>
+  </tr>
+  </thead>
+  <% @labels.each do |label| %>
+  <tr>
+    <td><%= label.name %></td>
+    <td><%= label.tasks.size %></td>
+    <td>
+      <%= link_to t("label_list_page.table.actions_links.update"), edit_label_path(label) ,class: "edit-label btn btn-outline-info mr-2" %>
+      <%= link_to t("label_list_page.table.actions_links.delete"), delete_label_path(label),class: "destroy-label btn btn-outline-danger",method: :delete,data: { confirm: t("index_page.table.confirm_destroy_action") } %>
+    </td>
+  </tr>
+  <% end %>
+</table>

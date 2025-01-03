@@ -39,6 +39,10 @@ fr:
               blank: "Veuillez entrer votre adresse e-mail"
               invalid: "Veuillez entrer votre adresse e-mail"
               taken: "L'adresse e-mail est déjà utilisée"
+        label:
+          attributes:
+            name:
+              blank: "Le nom ne peut être vide"
   global_form_error_sigle: "est survenue lors de l'enregistrement de la tâche"
   global_form_user_error_sigle: "est survenue lors de la création du compte"
   global_form_error_plurial: "sont survenues lors de l'enregistrement de la tâche"
@@ -72,6 +76,8 @@ fr:
       sign_in_link: 'Se connecter'
       account_settings: 'paramètres du compte'
       sign_out_link: 'Déconnexion'
+      new_label_link: "Ajouter un label"
+      labels_link_text: "Liste des labels"
   index_page:
     title: 'Page de liste des tâches'
     table:
@@ -89,6 +95,8 @@ fr:
       confirm_destroy_action: 'Êtes-vous sûr de vouloir le supprimer ?'
     search_button: 'Rechercher'
     label_status: "Status"
+    label_title: "Titre"
+    label_label: "Étiquette"
   new_task_page:
     title: "Page d'enregistrement des tâches"
   show_task_page:
@@ -98,6 +106,7 @@ fr:
     show_created_at_title: "Date et heure de création"
     show_dreadline_text: "Due Date"
     show_priority_title: "Priority"
+    show_labels_title: "Étiquettes"
     show_status_title: "Status"
     edit_link_text: "Modifier"
   edit_task_page:
@@ -165,3 +174,23 @@ fr:
     name_label: "Nom"
     email_label: "Adresse email"
     update_button_label: "modifier"
+  label_list_page:
+    title: "Liste des labels"
+    table:
+      headers:
+        name: "Nom"
+        task_number: "Nombre de tâches"
+      actions_links:
+        update: "Modifier"
+        delete: "Supprimer"
+  new_label_page:
+    title: "Page d'enregistrement des étiquettes"
+    name_label: "Nom"
+    save__button_label: "Enregistrer"
+  update_label_page:
+    title: "Mettre à jour une étiquette"
+    save__button_label: "Mettre à jour"
+    success_message: "Mise à jour avec succès"
+  delete_label_page:
+    title: "Supprimer une étiquette"
+    success_message: "Supprimé avec succès"

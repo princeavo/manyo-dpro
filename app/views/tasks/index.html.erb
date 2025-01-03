@@ -1,22 +1,37 @@
-<p id="notice"><%= notice %></p>
-<p id="success"><%= flash[:success] %></p>
-<p id="error"><%= flash[:error] %></p>
+<% if notice  %>
+<p id="notice" class="alert alert-info"><%= notice %></p>
+<% end %>
+<% if flash[:success]  %>
+<p id="success" class="alert alert-success"><%= flash[:success] %></p>
+<% end %>
+
+
+<% if flash[:error]  %>
+<p id="error" class="alert alert-danger"><%= flash[:error] %></p>
+<% end %>
 <h1><%= t("index_page.title") %></h1>
 
 <%= form_with url: tasks_path, method: :get, local: true do |form| %>
 
   <div class="input-group mb-4"> 
-    <%= form.text_field :title, class:'form-control' %>
-    <div class="input-group-append">  
+    <div class="form-group mx-2">
+      <strong> <%= form.label :title , t("index_page.label_title") %> </strong>
+      <%= form.text_field :title, class:'form-control' %>
+    </div>
+    <div class="form-group mx-2">  
       <strong> <%= form.label :status , t("index_page.label_status") %> </strong>
-      <%= form.select :status,Task::statuses,{:include_blank => 'Sélectionnez un status'} %> 
+      <%= form.select :status,Task::statuses,{:include_blank => 'Sélectionnez un status'} ,class: 'form-control' %> 
+    </div>
+    <div class="form-group-append mx-2">  
+      <strong> <%= form.label :label , t("index_page.label_label") %> </strong>
+      <%= form.select :label,Label.all.map { |city| [city.name, city.id]},{:include_blank => 'Sélectionnez une étiquette'} ,class: 'form-control' %> 
     </div>
   </div>
   <%= form.submit t("index_page.search_button"), class: 'btn btn-outline-primary mr-2',id:'search_task' %> 
 <% end %>
 
 <br>
-<table>
+<table class="table border">
   <thead>
     <tr>
       <th><%= t("index_page.table.headers.title") %></th>
@@ -38,9 +53,9 @@
         <td><%= task.deadline_on %></td>
         <td><%= task.priority %></td>
         <td><%= task.status %></td>
-        <td><%= link_to t("index_page.table.actions_links.show"), task_path(task) %></td>
-        <td><%= link_to t("index_page.table.actions_links.edit"), edit_task_path(task) %></td>
-        <td><%= link_to t("index_page.table.actions_links.destroy"), task, method: :delete, data: { confirm: t("index_page.table.confirm_destroy_action") } %></td>
+        <td><%= link_to t("index_page.table.actions_links.show"), task_path(task) , class: "btn btn-info" %></td>
+        <td><%= link_to t("index_page.table.actions_links.edit"), edit_task_path(task), class: "btn btn-info" %></td>
+        <td><%= link_to t("index_page.table.actions_links.destroy"), task, class: "btn btn-danger", method: :delete, data: { confirm: t("index_page.table.confirm_destroy_action") } %></td>
       </tr>
     <% end %>
   </tbody>

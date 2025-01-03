@@ -6,44 +6,76 @@
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <% if current_page?(tasks_path) || current_page?(root_path) || current_page?(admin_users_path) %>
+    <% if current_page?(tasks_path) || current_page?(root_path) || current_page?(admin_users_path) || current_page?(labels_path) %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
     <% end %>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <style>
+      .container{
+        min-width:80% !important;
+      }
+    </style>
+
+
   <body>
-    <div id="global_navigation">
-      <div>
-        <h2><%= t("application.menu1.title") %></h2>
-        <ul>
-        <% if !user_not_logged? %>
-          <li><%= link_to t("application.menu1.account_settings"), show_profile_path %></li>
-          <li><%= button_to t("application.menu1.sign_out_link"), destroy_session_path , method: :post %></li>
-        <% else %>
-          <li><%= link_to t("application.menu1.sign_up_link"), new_user_path , id: 'sign-up' %></li>
-          <li><%= link_to t("application.menu1.sign_in_link"), login_path %></li>
-        <% end %>
+
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary" id="global_navigation">
+    <div class="container">
+      <div class="collapse navbar-collapse justify-content-between" id="navbarButtonsExample">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <%= link_to "Manyo", tasks_path,class: "nav-link px-3 me-2" %>
+          </li>
         </ul>
+        <div class="d-flex align-items-center" >
+          <% if !user_not_logged? %>
+            <%= link_to t("application.menu1.account_settings"), show_profile_path,class: "btn btn-outline px-3 me-2" %>
+            <%= link_to t("application.menu1.new_label_link"), new_label_path ,class: "btn btn-outline px-3 me-2" %>
+            <%= link_to t("application.menu1.labels_link_text"), labels_path  ,class: "btn btn-outline px-3 me-2" %>
+
+            <div class="dropdown show">
+              <a class="btn btn-secondary mr-2 dropdown-toggle" href="#" role="button" id="tasks_dropDown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Tâches
+              </a>
+
+              <div class="dropdown-menu" aria-labelledby="tasks_dropDown">
+                <%= link_to t("application.tasks_links.index"), tasks_path ,class: "btn btn-outline px-3 me-2" %>
+                <%= link_to t("application.tasks_links.new"), new_task_path ,class: "btn btn-outline px-3 me-2"%>
+              </div>
+            </div>
+            <% if current_user_is_admin? %>
+            <div class="dropdown show">
+              <a class="btn btn-outline-warning mr-2 dropdown-toggle" href="#" role="button" id="admin_dropDown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Admin
+              </a>
+
+              <div class="dropdown-menu" aria-labelledby="admin_dropDown">
+                <%= link_to t("application.admin_links.list_user"), admin_users_path,id:"users-index",class: "btn btn-outline px-3 me-2" %>
+                <%= link_to t("application.admin_links.new_user"), new_admin_user_path,id:"add-user" ,class: "btn btn-outline px-3 me-2"%>
+                <%= link_to t("application.admin_links.edit_user"), admin_user_path(current_user.id),class: "btn btn-outline px-3 me-2" %>
+                <%= link_to t("application.admin_links.show_user"), edit_admin_user_path(current_user.id) ,class: "btn btn-outline px-3 me-2"%>
+              </div>
+            </div>
+            <% end %>
+            <%= button_to t("application.menu1.sign_out_link"), destroy_session_path , method: :post ,class: "btn btn-danger me-3" %>
+          <% else %>
+            <%= link_to t("application.menu1.sign_up_link"), new_user_path , id: 'sign-up' ,class: "btn btn-outline px-3 me-2" %>
+            <%= link_to t("application.menu1.sign_in_link"), login_path,class: "btn btn-primary me-3" %>
+          <% end %>
+        </div>
       </div>
-      <% if !user_not_logged? %>
-      <div>
-        <h2>CDP Web Manyo Task</h2>
-        <ul>
-          <li><%= link_to t("application.tasks_links.index"), tasks_path %></li>
-          <li><%= link_to t("application.tasks_links.new"), new_task_path %></li>
-        </ul>
-      </div>
-      <% end %>
-      <% if current_user_is_admin? %>
-      <div>
-        <h2>Admin</h2>
-        <ul>
-          <li><%= link_to t("application.admin_links.list_user"), admin_users_path,id:"users-index" %></li>
-          <li><%= link_to t("application.admin_links.new_user"), new_admin_user_path,id:"add-user" %></li>
-          <li><%= link_to t("application.admin_links.edit_user"), admin_user_path(2) %></li>
-          <li><%= link_to t("application.admin_links.show_user"), edit_admin_user_path(2) %></li>
-        </ul>
-      </div>
-      <% end %>
     </div>
-    <%= yield %>
+  </nav>
+    <div class='container'>
+      <%= yield %>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   </body>
 </html>

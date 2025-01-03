@@ -1,15 +1,19 @@
 <h1><%= t("login_page.title") %></h1>
-<p id="error"><%= flash[:error] %></p>
-<p id="success"><%= flash[:success] %></p>
+<% if flash[:error]  %>
+<p id="error" class="alert alert-danger"><%= flash[:error] %></p>
+<% end  %>
+<% if flash[:success]  %>
+<p id="success" class="alert alert-success"><%= flash[:success] %></p>
+<% end  %>
 <%= form_with  local: true, data: { turbo: false }, url: new_session_post_path do |form| %>
-  <div>
+  <div class= "form-group">
     <%= form.label :email, t("login_page.email_label") %> <br>
-    <%= form.text_field :email %>
+    <%= form.text_field :email,class: "form-control" %>
   </div>
   <div>
     <%= form.label :password, t("login_page.password_label") %> <br>
-    <%= form.password_field :password %>
+    <%= form.password_field :password ,class: "form-control" %>
   </div>
   <br>
-  <%= form.submit t("login_page.login_button") %>
+  <%= form.submit t("login_page.login_button"),class: "btn btn-primary" %>
 <% end %>

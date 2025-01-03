@@ -1,33 +1,33 @@
 <% if user.errors.any? %>
-  <div id="error_explanation">
-    <h2><%= user.errors.count %> <%= user.errors.count < 2 ? t('error_title_single') : t('error_title_plurial') %> <%= user.errors.count < 2 ? t('global_form_user_error_sigle') : t('global_form_user_error_plurial') %>:</h2>
+  <div id="error_explanation" class='alert alert-danger'>
+    <h4><%= user.errors.count %> <%= user.errors.count < 2 ? t('error_title_single') : t('error_title_plurial') %> <%= user.errors.count < 2 ? t('global_form_user_error_sigle') : t('global_form_user_error_plurial') %>:</h4>
 
-    <ul>
+    <ul class="list-group">
       <% user.errors.each do |error| %>
-        <li><%= error.full_message %></li>
+        <li class="list-group-item list-group-item-danger"><%= error.full_message %></li>
       <% end %>
     </ul>
   </div>
 <% end %>
 <%= form_with model: user , local: true, data: { turbo: false },  url: url do |form| %>
-  <div>
+  <div class='form-group'>
     <%= form.label :name, t("new_account_page.name_label") %> <br>
-    <%= form.text_field :name %>
+    <%= form.text_field :name ,class: "form-control" %>
   </div>
   <div>
     <%= form.label :email, t("new_account_page.email_label") %> <br>
-    <%= form.text_field :email %>
+    <%= form.text_field :email  ,class: "form-control"%>
   </div>
   <div>
     <%= form.label :password, t("new_account_page.password_label") %> <br>
-    <%= form.password_field :password %>
+    <%= form.password_field :password ,class: "form-control" %>
   </div>
   <div>
-    <%= form.label :password_confirmation, t("new_account_page.password_confirmation_label") %> <br>
-    <%= form.password_field :password_confirmation %>
+    <%= form.label :password_confirmation, t("new_account_page.password_confirmation_label")  %> <br>
+    <%= form.password_field :password_confirmation ,class: "form-control" %>
   </div>
   <br>
-  <%= form.submit submit_button_name , id:submit_button_id %>
+  <%= form.submit submit_button_name , id:submit_button_id ,class: "btn btn-primary mb-3" %>
   <div>
     <%= link_to t("back"), tasks_path , id:'back' %>
   </div>

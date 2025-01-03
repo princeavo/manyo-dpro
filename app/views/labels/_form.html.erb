@@ -1,0 +1,21 @@
+<% if label.errors.any? %>
+  <div id="error_explanation" class="alert alert-danger">
+    <h4><%= label.errors.count %> <%= label.errors.count < 2 ? t('error_title_single') : t('error_title_plurial') %> <%= label.errors.count < 2 ? t('global_form_user_error_sigle') : t('global_form_user_error_plurial') %>:</h4>
+
+    <ul>
+      <% label.errors.each do |error| %>
+        <li><%= error.full_message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+<%= form_with model: label , local: true, data: { turbo: false },  url: url do |form| %>
+  <div class="form-group">
+    <%= form.label :name, t("new_label_page.name_label") %> <br>
+    <%= form.text_field :name , class: "form-control" %>
+  </div>
+  <%= form.submit submit_button_name ,class: "btn btn-primary mb-2" %>
+  <div>
+    <%= link_to t("back"), labels_path , id:'back' %>
+  </div>
+<% end %>

@@ -7,28 +7,59 @@ class TasksController < ApplicationController
   #before_action :all_before_actions
 
   # GET /tasks or /tasks.json
-  def index
-    if params[:sort_deadline_on].blank?
-      #@tasks = Task.order_by_created_at.page(params[:page])
-      if params[:sort_prority].blank?
-        @tasks = current_user.tasks.order_by_created_at.page(params[:page])
-      else
-        @tasks = current_user.tasks.order_by_priority_asc.page(params[:page])
-      end
-    else
-      @tasks = current_user.tasks.order_by_deadline.page(params[:page])
-    end
+  # def index
+  #   if params[:sort_deadline_on].blank?
+  #     #@tasks = Task.order_by_created_at.page(params[:page])
+  #     if params[:sort_prority].blank?
+  #       @tasks = current_user.tasks.order_by_created_at.page(params[:page])
+  #     else
+  #       @tasks = current_user.tasks.order_by_priority_asc.page(params[:page])
+  #     end
+  #   else
+  #     @tasks = current_user.tasks.order_by_deadline.page(params[:page])
+  #   end
 
-    if params[:title].present? && params[:status].present?
-      # return search results where both name and status are valid
-      @tasks = current_user.tasks.search_title(params[:title]).search_status(params[:status]).page(params[:page])
-      # When the only parameter passed is the task name
-    elsif params[:title].present?
-      @tasks = current_user.tasks.search_title(params[:title]).page(params[:page])
-      # When the only parameter passed is status
-    elsif params[:status].present?
-      @tasks = current_user.tasks.search_status(params[:status]).page(params[:page])
+  #   if params[:title].present? && params[:status].present?
+  #     # return search results where both name and status are valid
+  #     @tasks = current_user.tasks.search_title(params[:title]).search_status(params[:status]).page(params[:page])
+  #     # When the only parameter passed is the task name
+  #   elsif params[:title].present?
+  #     @tasks = current_user.tasks.search_title(params[:title]).page(params[:page])
+  #     # When the only parameter passed is status
+  #   elsif params[:status].present?
+  #     @tasks = current_user.tasks.search_status(params[:status]).page(params[:page])
+  #   end
+  # end
+
+  def index
+    # Default sorting by created_at
+    @tasks = current_user.tasks.order_by_created_at.page(params[:page])
+  
+    # Handle sorting by deadline or priority
+    if params[:sort_deadline_on].present?
+      @tasks = @tasks.order_by_deadline
+    elsif params[:sort_prority].present?
+      @tasks = @tasks.order_by_priority_asc
     end
+  
+    # Handle search by title, status, or label
+    if params[:title].present?
+      @tasks = @tasks.search_title(params[:title])
+    end
+  
+    if params[:status].present?
+      @tasks = @tasks.search_status(params[:status])
+    end
+  
+    if params[:label].present?
+      # Search by label using the label ID
+      label = Label.find(params[:label])
+      @tasks = @tasks.joins(:labels).where(labels: { id: label.id })
+    end
+  
+    # Combine search criteria (title, status, and label)
+    @tasks = @tasks.where(title: params[:title]) if params[:title].present?
+    @tasks = @tasks.where(status: params[:status]) if params[:status].present?
   end
 
   # GET /tasks/1 or /tasks/1.json
@@ -47,6 +78,13 @@ class TasksController < ApplicationController
   # POST /tasks or /tasks.json
   def create
     @task = Task.new(task_params.merge(user: current_user))
+
+    # params[:labels][:labels_id].each do |label_id|
+    #   unless label_id.empty?
+    #   label = Label.find(label_id)
+    #     @task.labels << label
+    #   end
+    # end
 
     respond_to do |format|
       if @task.save
@@ -90,7 +128,7 @@ class TasksController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def task_params
-      params.require(:task).permit(:title, :content,:deadline_on,:priority,:status)
+      params.require(:task).permit(:title, :content,:deadline_on,:priority,:status,label_ids: [])
     end
     def all_before_actions
       authenticate_user

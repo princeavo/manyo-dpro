@@ -21,6 +21,18 @@ Rails.application.routes.draw do
       patch "/user/:id/edit", to: "admin#update_user", as: "edit_admin_user_post"
       delete "/user/:id", to: "admin#destroy", as: "delete_admin_user"
   end
+  scope :labels do
+    get "/list", to: "labels#index", as: "labels"
+    get "/new", to: "labels#new", as: "new_label"
+    post "/new", to: "labels#create", as: "new_label_post"
+    get "/edit/:id", to: "labels#edit", as: "edit_label"
+    patch "/edit/:id", to: "labels#update", as: "update_label"
+    delete "/delete/:id", to: "labels#destroy", as: "delete_label"
+  end
+
+  get '/404', to: 'errors#not_found'
+  get '/500', to: 'errors#internal_server'
+  get '/422', to: 'errors#unprocessable'
 end
 
 
