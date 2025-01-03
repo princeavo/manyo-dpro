@@ -33,13 +33,15 @@ class TasksController < ApplicationController
 
   def index
     # Default sorting by created_at
-    @tasks = current_user.tasks.order_by_created_at.page(params[:page])
+    @tasks = current_user.tasks.page(params[:page])
   
     # Handle sorting by deadline or priority
     if params[:sort_deadline_on].present?
       @tasks = @tasks.order_by_deadline
     elsif params[:sort_prority].present?
       @tasks = @tasks.order_by_priority_asc
+    else
+      @tasks = @tasks.order_by_created_at
     end
   
     # Handle search by title, status, or label

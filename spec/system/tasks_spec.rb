@@ -81,14 +81,14 @@ RSpec.describe 'Fonction de gestion des tâches', type: :system do
           it "Seules les tâches contenant des termes de recherche sont affichées." do
             Task.delete_all
             # Utilisez les fonctions to et not_to pour vérifier ce qui est affiché et ce qui ne l'est pas.
-            Task.create(title: 'priorité cliquez', content: 'nil',deadline_on: '2024-12-08',priority: :high, status: 'Not Started',user: user)
-            Task.create(title: 'classées cliquez', content: 'nil',deadline_on: '2024-12-09',priority: :medium, status: 'Not Started',user: user)
-            Task.create(title: 'tâches clic', content: 'nil',deadline_on: '2024-12-10',priority: :low, status: 'Not Started',user: user)
+            Task.create!(title: 'priorité cliquez', content: 'nil',deadline_on: '2024-12-08',priority: :high, status: 'Not Started',user: user)
+            Task.create!(title: 'classées cliquez', content: 'nil',deadline_on: '2024-12-09',priority: :medium, status: 'Not Started',user: user)
+            Task.create!(title: 'tâches clic', content: 'nil',deadline_on: '2024-12-10',priority: :low, status: 'Not Started',user: user)
 
-            Task.create(title: 'Titre1', content: 'nil',deadline_on: '2024-12-08',priority: :low, status: 'Not Started',user: user)
-            Task.create(title: 'Titre2', content: 'nil',deadline_on: '2024-12-09',priority: :low, status: 'Not Started',user: user)
-            Task.create(title: 'Titre3', content: 'nil',deadline_on: '2024-12-10',priority: :low, status: 'Not Started',user: user)
-            Task.create(title: 'Autre test', content: 'nil',deadline_on: '2024-12-11',priority: :low, status: 'Not Started',user: user)
+            Task.create!(title: 'Titre1', content: 'nil',deadline_on: '2024-12-08',priority: :low, status: 'Not Started',user: user)
+            Task.create!(title: 'Titre2', content: 'nil',deadline_on: '2024-12-09',priority: :low, status: 'Not Started',user: user)
+            Task.create!(title: 'Titre3', content: 'nil',deadline_on: '2024-12-10',priority: :low, status: 'Not Started',user: user)
+            Task.create!(title: 'Autre test', content: 'nil',deadline_on: '2024-12-11',priority: :low, status: 'Not Started',user: user)
 
             login
             visit tasks_path
@@ -177,6 +177,29 @@ RSpec.describe 'Fonction de gestion des tâches', type: :system do
             expect(td_list.count).to eq 2*9
             expect(td_list[0]).to have_content 'tâches clic'
             expect(td_list[9]).not_to have_content 'Titre2'
+          end
+        end
+        context "Lors d'une recherche par étiquette." do
+          it "Toutes les tâches portant ce libellé s'affichent." do
+            Task.delete_all
+            label = Label.create(name: 'cli')
+            # Utilisez les fonctions to et not_to pour vérifier ce qui est affiché et ce qui ne l'est pas.
+            Task.create(title: 'priorité cliquez', content: 'nil',deadline_on: '2024-12-08',priority: :high, status: 'Not Started',user: user,labels_id:[label.id])
+            Task.create(title: 'classées cliquez', content: 'nil',deadline_on: '2024-12-09',priority: :medium, status: 'Not Started',user: user,labels_id:[])
+            Task.create(title: 'tâches clic', content: 'nil',deadline_on: '2024-12-10',priority: :low, status: 'Complete',user: user,labels_id:[])
+
+            login
+            visit tasks_path
+
+            fill_in 'title', with: 'cli'
+            select(label.name, from: "Étiquette")
+
+            click_on 'Rechercher'
+
+            td_list = all('td')
+
+            expect(td_list.count).to eq 1*9
+            expect(td_list[0]).to have_content 'priorité cliquez'
           end
         end
       end

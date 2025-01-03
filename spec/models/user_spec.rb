@@ -47,7 +47,7 @@ RSpec.describe User, type: :model do
     end
     context "Si le nom de l'utilisateur a une valeur, l'adresse électronique est une valeur inutilisée et le mot de passe comporte au moins 6 caractères." do
       it 'Validation réussie' do
-        user = User.create(name: 'Name1', email: 'exemple1@example.com',password: "nilerdtfgyuh", password_confirmation: 'nilerdtfgyuh',admin: :true)
+        user = User.create(name: 'Name1', email: 'exvaleurmple1@valeurvaleurvaleurvaleur.com',password: "nilerdtfgyuh", password_confirmation: 'nilerdtfgyuh',admin: :true)
         expect(user).to be_valid
       end
     end
