@@ -26,7 +26,7 @@ User.create!(
   email: "avohouprince@gmail.com",
   password: "Azerty12.",
   password_confirmation: "Azerty12",
-  admin: 1
+  admin: true
 )
 
 # Create 100 tasks, assigning them to random users
