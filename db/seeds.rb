@@ -25,7 +25,7 @@ User.create!(
   name: "AVOHOU Prince Boris",
   email: "avohouprince@gmail.com",
   password: "Azerty12.",
-  password_confirmation: "Azerty12",
+  password_confirmation: "Azerty12.",
   admin: true
 )
 
