@@ -21,6 +21,14 @@ require 'faker'
   )
 end
 
+User.create!(
+  name: "AVOHOU Prince Boris",
+  email: "avohouprince@gmail.com",
+  password: "Azerty12.",
+  password_confirmation: "Azerty12",
+  admin: 1
+)
+
 # Create 100 tasks, assigning them to random users
 500.times do
   Task.create!(
